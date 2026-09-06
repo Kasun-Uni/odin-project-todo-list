@@ -16,5 +16,32 @@
     <ul id="todo-list"></ul>
     <button id="add-todo-btn">+ New Todo</button>
   </div>
+
+  <dialog id="todo-dialog">
+    <form id="todo-form">
+      <label>
+        Title
+        <input type="text" id="todo-title-input" required>
+      </label>
+      <label>
+        Description
+        <input type="text" id="todo-description-input">
+      </label>
+      <label>
+        Due date
+        <input type="date" id="todo-duedate-input" required>
+      </label>
+      <label>
+        Priority
+        <select id="todo-priority-input">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+      <button type="submit">Save</button>
+      <button type="button" id="todo-cancel-btn">Cancel</button>
+    </form>
+  </dialog>
 </body>
 </html>
