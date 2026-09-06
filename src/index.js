@@ -22,6 +22,10 @@ function render() {
     (project) => {
       appController.setCurrentProject(project);
       render();
+    },
+    (project) => {
+      appController.removeProject(project);
+      render();
     }
   );
 

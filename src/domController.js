@@ -1,18 +1,34 @@
 // src/domController.js
 
-function renderProjectList(projects, currentProject, onSelectProject) {
+function renderProjectList(projects, currentProject, onSelectProject, onDeleteProject) {
   const projectListEl = document.getElementById("project-list");
   projectListEl.innerHTML = "";
 
   projects.forEach((project) => {
     const li = document.createElement("li");
-    li.textContent = project.name;
+
+    const nameSpan = document.createElement("span");
+    nameSpan.textContent = project.name;
+    nameSpan.addEventListener("click", () => onSelectProject(project));
+
+    li.appendChild(nameSpan);
+
+    if (project.name !== "Default") {
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "×";
+      deleteBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        if (confirm(`Delete project "${project.name}"?`)) {
+          onDeleteProject(project);
+        }
+      });
+      li.appendChild(deleteBtn);
+    }
 
     if (project === currentProject) {
       li.classList.add("active-project");
     }
 
-    li.addEventListener("click", () => onSelectProject(project));
     projectListEl.appendChild(li);
   });
 }
@@ -39,7 +55,11 @@ function renderTodoList(project, callbacks) {
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
-    deleteBtn.addEventListener("click", () => callbacks.onDeleteTodo(todo));
+    deleteBtn.addEventListener("click", () => {
+    if (confirm(`Delete "${todo.title}"?`)) {
+    callbacks.onDeleteTodo(todo);
+      }
+    })
 
     li.appendChild(checkbox);
     li.appendChild(titleSpan);
