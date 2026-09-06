@@ -1,17 +1,26 @@
 // src/appController.js
 import Todo from "./todo.js";
 import Project from "./project.js";
+import { saveProjects, loadProjects } from "./storage.js";
 
-// Holds all projects
 let projects = [];
-
-// Tracks which project is currently being viewed
 let currentProject = null;
 
 function init() {
-  const defaultProject = new Project("Default");
-  projects.push(defaultProject);
-  currentProject = defaultProject;
+  const loadedProjects = loadProjects();
+
+  if (loadedProjects && loadedProjects.length > 0) {
+    projects = loadedProjects;
+    currentProject = projects[0];
+  } else {
+    const defaultProject = new Project("Default");
+    projects.push(defaultProject);
+    currentProject = defaultProject;
+  }
+}
+
+function save() {
+  saveProjects(projects);
 }
 
 function getProjects() {
@@ -35,7 +44,6 @@ function addProject(name) {
 function removeProject(project) {
   projects = projects.filter((p) => p !== project);
 
-  // If we deleted the currently active project, fall back to the first one
   if (currentProject === project) {
     currentProject = projects[0] || null;
   }
@@ -53,6 +61,7 @@ function removeTodoFromCurrentProject(todo) {
 
 export {
   init,
+  save,
   getProjects,
   getCurrentProject,
   setCurrentProject,

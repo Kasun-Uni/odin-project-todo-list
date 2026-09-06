@@ -42,8 +42,9 @@ function render() {
       render();
     },
   });
-}
 
+  appController.save(); // ← new line: save every time we render
+}
 function openDialogForNewTodo() {
   editingTodo = null;
   form.reset();
