@@ -1,9 +1,6 @@
-import Todo from "./todo.js";
-import Project from "./project.js";
+import * as appController from "./appController.js";
 
-const defaultProject = new Project("Default");
+appController.init();
+appController.addTodoToCurrentProject("Buy milk", "Get 2% milk", "2026-09-10", "high");
 
-const testTodo = new Todo("Buy milk", "Get 2% milk", "2026-09-10", "high");
-defaultProject.addTodo(testTodo);
-
-console.log(defaultProject);
+console.log(appController.getCurrentProject());
