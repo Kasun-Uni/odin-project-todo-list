@@ -1,6 +1,8 @@
 // src/index.js
 import * as appController from "./appController.js";
 import { renderProjectList, renderTodoList } from "./domController.js";
+import "./styles.css";
+
 
 const dialog = document.getElementById("todo-dialog");
 const form = document.getElementById("todo-form");
